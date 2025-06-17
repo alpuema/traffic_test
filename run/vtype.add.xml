@@ -1,0 +1,3 @@
+<vTypes>
+    <vType id="car" vClass="passenger" maxSpeed="10"/>
+</vTypes>
