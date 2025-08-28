@@ -1,0 +1,82 @@
+{
+  "analysis_metadata": {
+    "total_runs": 8,
+    "successful_runs": 8,
+    "analysis_time_seconds": 310.82331919670105,
+    "parameter_ranges": {
+      "n_ants": [
+        5,
+        10,
+        15,
+        20
+      ]
+    }
+  },
+  "best_configuration": {
+    "parameters": {
+      "n_ants": 10
+    },
+    "mean_cost": 1476.107142857143,
+    "std_cost": 229.6071428571429,
+    "mean_improvement": 0.0
+  },
+  "parameter_statistics": {
+    "[('n_ants', 5)]": {
+      "parameters": {
+        "n_ants": 5
+      },
+      "n_replications": 2,
+      "cost_mean": 1488.4057971014493,
+      "cost_std": 26.927536231884005,
+      "cost_min": 1461.4782608695652,
+      "cost_max": 1515.3333333333333,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 10)]": {
+      "parameters": {
+        "n_ants": 10
+      },
+      "n_replications": 2,
+      "cost_mean": 1476.107142857143,
+      "cost_std": 229.6071428571429,
+      "cost_min": 1246.5,
+      "cost_max": 1705.7142857142858,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 15)]": {
+      "parameters": {
+        "n_ants": 15
+      },
+      "n_replications": 2,
+      "cost_mean": 1506.6727688787187,
+      "cost_std": 99.06407322654456,
+      "cost_min": 1407.608695652174,
+      "cost_max": 1605.7368421052631,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 20)]": {
+      "parameters": {
+        "n_ants": 20
+      },
+      "n_replications": 2,
+      "cost_mean": 1509.9345238095239,
+      "cost_std": 18.35119047619048,
+      "cost_min": 1491.5833333333333,
+      "cost_max": 1528.2857142857142,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    }
+  },
+  "overall_statistics": {
+    "mean_cost_across_all": 1495.2800581617087,
+    "std_cost_across_all": 126.84083768839255,
+    "mean_improvement_across_all": 0.0
+  }
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-08-27 16:20:41 by Eclipse SUMO duarouter Version 1.23.1
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="c:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_4x4.net.xml"/>
+        <route-files value="c:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_aco_files\temp_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_4x4.rou.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" departLane="random" departSpeed="random">
+        <route edges="C1D1 D1C1 C1B1 B1A1 A1A0 A0B0"/>
+    </vehicle>
+    <vehicle id="1" depart="15.00" departLane="random" departSpeed="random">
+        <route edges="B1A1 A1B1 B1B0 B0A0"/>
+    </vehicle>
+    <vehicle id="2" depart="30.00" departLane="random" departSpeed="random">
+        <route edges="C3B3 B3B2 B2C2 C2C1"/>
+    </vehicle>
+    <vehicle id="3" depart="45.00" departLane="random" departSpeed="random">
+        <route edges="D1D2 D2C2 C2B2 B2A2 A2A1 A1B1"/>
+    </vehicle>
+    <vehicle id="4" depart="60.00" departLane="random" departSpeed="random">
+        <route edges="B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
+    </vehicle>
+    <vehicle id="5" depart="75.00" departLane="random" departSpeed="random">
+        <route edges="B0A0 A0A1 A1B1 B1C1 C1C0 C0B0"/>
+    </vehicle>
+    <vehicle id="6" depart="90.00" departLane="random" departSpeed="random">
+        <route edges="A0B0 B0B1 B1B2 B2A2 A2A3 A3B3"/>
+    </vehicle>
+    <vehicle id="7" depart="105.00" departLane="random" departSpeed="random">
+        <route edges="C2B2 B2B1 B1B0 B0C0 C0D0"/>
+    </vehicle>
+    <vehicle id="8" depart="120.00" departLane="random" departSpeed="random">
+        <route edges="B0A0 A0A1 A1B1 B1C1 C1C0"/>
+    </vehicle>
+    <vehicle id="9" depart="135.00" departLane="random" departSpeed="random">
+        <route edges="D0C0 C0B0 B0A0 A0A1"/>
+    </vehicle>
+    <vehicle id="10" depart="150.00" departLane="random" departSpeed="random">
+        <route edges="D0C0 C0C1 C1C2 C2C3"/>
+    </vehicle>
+    <vehicle id="11" depart="165.00" departLane="random" departSpeed="random">
+        <route edges="B1C1 C1B1 B1A1 A1A2 A2B2"/>
+    </vehicle>
+    <vehicle id="12" depart="180.00" departLane="random" departSpeed="random">
+        <route edges="D2D3 D3C3 C3B3 B3B2 B2B1 B1C1"/>
+    </vehicle>
+    <vehicle id="13" depart="195.00" departLane="random" departSpeed="random">
+        <route edges="A1B1"/>
+    </vehicle>
+    <vehicle id="14" depart="210.00" departLane="random" departSpeed="random">
+        <route edges="D1C1 C1C0"/>
+    </vehicle>
+    <vehicle id="15" depart="225.00" departLane="random" departSpeed="random">
+        <route edges="D0C0 C0C1 C1C2 C2C3 C3B3"/>
+    </vehicle>
+    <vehicle id="16" depart="240.00" departLane="random" departSpeed="random">
+        <route edges="C0C1 C1C2 C2D2 D2D3 D3C3"/>
+    </vehicle>
+    <vehicle id="17" depart="255.00" departLane="random" departSpeed="random">
+        <route edges="B2B1 B1B0 B0C0 C0D0"/>
+    </vehicle>
+    <vehicle id="18" depart="270.00" departLane="random" departSpeed="random">
+        <route edges="D0D1 D1C1 C1C2"/>
+    </vehicle>
+    <vehicle id="19" depart="285.00" departLane="random" departSpeed="random">
+        <route edges="D1D0 D0C0 C0C1 C1B1"/>
+    </vehicle>
+    <vehicle id="20" depart="300.00" departLane="random" departSpeed="random">
+        <route edges="C2C3 C3B3 B3A3 A3A2 A2A1 A1A0"/>
+    </vehicle>
+    <vehicle id="21" depart="315.00" departLane="random" departSpeed="random">
+        <route edges="B0A0 A0A1 A1B1 B1A1"/>
+    </vehicle>
+    <vehicle id="22" depart="330.00" departLane="random" departSpeed="random">
+        <route edges="A1A2 A2B2 B2B1 B1B0 B0B1"/>
+    </vehicle>
+    <vehicle id="23" depart="345.00" departLane="random" departSpeed="random">
+        <route edges="A1B1 B1A1"/>
+    </vehicle>
+    <vehicle id="24" depart="360.00" departLane="random" departSpeed="random">
+        <route edges="C1D1 D1D2 D2C2 C2B2 B2A2"/>
+    </vehicle>
+    <vehicle id="25" depart="375.00" departLane="random" departSpeed="random">
+        <route edges="B2A2 A2A1 A1B1 B1B0 B0A0"/>
+    </vehicle>
+    <vehicle id="26" depart="390.00" departLane="random" departSpeed="random">
+        <route edges="B0C0 C0C1 C1C2 C2D2 D2D1"/>
+    </vehicle>
+    <vehicle id="27" depart="405.00" departLane="random" departSpeed="random">
+        <route edges="C2B2 B2B1 B1C1 C1C2"/>
+    </vehicle>
+    <vehicle id="28" depart="420.00" departLane="random" departSpeed="random">
+        <route edges="A3A2 A2B2 B2C2 C2D2"/>
+    </vehicle>
+    <vehicle id="29" depart="435.00" departLane="random" departSpeed="random">
+        <route edges="A2B2 B2B1"/>
+    </vehicle>
+    <vehicle id="30" depart="450.00" departLane="random" departSpeed="random">
+        <route edges="D3D2 D2C2 C2C1 C1D1"/>
+    </vehicle>
+    <vehicle id="31" depart="465.00" departLane="random" departSpeed="random">
+        <route edges="C0D0 D0D1 D1D2 D2C2 C2C1"/>
+    </vehicle>
+    <vehicle id="32" depart="480.00" departLane="random" departSpeed="random">
+        <route edges="D1C1 C1C2 C2C3 C3D3"/>
+    </vehicle>
+    <vehicle id="33" depart="495.00" departLane="random" departSpeed="random">
+        <route edges="B0A0 A0A1 A1A0 A0B0"/>
+    </vehicle>
+    <vehicle id="34" depart="510.00" departLane="random" departSpeed="random">
+        <route edges="B1B2 B2B1 B1B0 B0C0"/>
+    </vehicle>
+    <vehicle id="35" depart="525.00" departLane="random" departSpeed="random">
+        <route edges="B0A0 A0A1 A1A2 A2B2 B2C2 C2D2 D2D3"/>
+    </vehicle>
+    <vehicle id="36" depart="540.00" departLane="random" departSpeed="random">
+        <route edges="D1D2 D2C2 C2C1 C1B1 B1B2"/>
+    </vehicle>
+    <vehicle id="37" depart="555.00" departLane="random" departSpeed="random">
+        <route edges="C2B2 B2B1"/>
+    </vehicle>
+    <vehicle id="38" depart="570.00" departLane="random" departSpeed="random">
+        <route edges="D2C2 C2C3 C3B3 B3B2"/>
+    </vehicle>
+    <vehicle id="39" depart="585.00" departLane="random" departSpeed="random">
+        <route edges="B0C0 C0B0 B0B1"/>
+    </vehicle>
+    <vehicle id="40" depart="600.00" departLane="random" departSpeed="random">
+        <route edges="C0D0 D0D1 D1C1 C1B1 B1B0 B0C0"/>
+    </vehicle>
+    <vehicle id="41" depart="615.00" departLane="random" departSpeed="random">
+        <route edges="C1C0 C0D0 D0D1 D1D2 D2C2"/>
+    </vehicle>
+    <vehicle id="42" depart="630.00" departLane="random" departSpeed="random">
+        <route edges="B2B3 B3B2 B2B1 B1B0 B0A0"/>
+    </vehicle>
+    <vehicle id="43" depart="645.00" departLane="random" departSpeed="random">
+        <route edges="D3D2 D2D1 D1D0 D0C0 C0B0"/>
+    </vehicle>
+    <vehicle id="44" depart="660.00" departLane="random" departSpeed="random">
+        <route edges="A1B1 B1A1 A1A0"/>
+    </vehicle>
+    <vehicle id="45" depart="675.00" departLane="random" departSpeed="random">
+        <route edges="A2A1 A1B1 B1C1 C1D1"/>
+    </vehicle>
+    <vehicle id="46" depart="690.00" departLane="random" departSpeed="random">
+        <route edges="D0C0 C0B0 B0B1 B1B2 B2C2"/>
+    </vehicle>
+    <vehicle id="47" depart="705.00" departLane="random" departSpeed="random">
+        <route edges="A1A2 A2B2 B2B1"/>
+    </vehicle>
+    <vehicle id="48" depart="720.00" departLane="random" departSpeed="random">
+        <route edges="D3D2 D2D1 D1D0 D0C0 C0C1"/>
+    </vehicle>
+    <vehicle id="49" depart="735.00" departLane="random" departSpeed="random">
+        <route edges="D3C3 C3C2 C2C1 C1D1 D1D0"/>
+    </vehicle>
+</routes>

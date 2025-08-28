@@ -1,0 +1,82 @@
+{
+  "analysis_metadata": {
+    "total_runs": 8,
+    "successful_runs": 8,
+    "analysis_time_seconds": 326.76829743385315,
+    "parameter_ranges": {
+      "n_ants": [
+        5,
+        10,
+        15,
+        20
+      ]
+    }
+  },
+  "best_configuration": {
+    "parameters": {
+      "n_ants": 15
+    },
+    "mean_cost": 1354.2217391304348,
+    "std_cost": 169.1782608695653,
+    "mean_improvement": 0.0
+  },
+  "parameter_statistics": {
+    "[('n_ants', 5)]": {
+      "parameters": {
+        "n_ants": 5
+      },
+      "n_replications": 2,
+      "cost_mean": 1659.576441102757,
+      "cost_std": 223.52882205513788,
+      "cost_min": 1436.047619047619,
+      "cost_max": 1883.1052631578948,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 10)]": {
+      "parameters": {
+        "n_ants": 10
+      },
+      "n_replications": 2,
+      "cost_mean": 1777.2065217391305,
+      "cost_std": 75.7065217391305,
+      "cost_min": 1701.5,
+      "cost_max": 1852.913043478261,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 15)]": {
+      "parameters": {
+        "n_ants": 15
+      },
+      "n_replications": 2,
+      "cost_mean": 1354.2217391304348,
+      "cost_std": 169.1782608695653,
+      "cost_min": 1185.0434782608695,
+      "cost_max": 1523.4,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 20)]": {
+      "parameters": {
+        "n_ants": 20
+      },
+      "n_replications": 2,
+      "cost_mean": 1767.8863636363635,
+      "cost_std": 118.29545454545462,
+      "cost_min": 1649.590909090909,
+      "cost_max": 1886.1818181818182,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    }
+  },
+  "overall_statistics": {
+    "mean_cost_across_all": 1639.7227664021716,
+    "std_cost_across_all": 232.13380077557426,
+    "mean_improvement_across_all": 0.0
+  }
+}

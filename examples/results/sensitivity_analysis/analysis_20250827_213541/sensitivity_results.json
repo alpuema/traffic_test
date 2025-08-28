@@ -1,0 +1,146 @@
+[
+  {
+    "success": true,
+    "best_cost": 1515.3333333333333,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 5,
+      "seed": 1406
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 5
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1461.4782608695652,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 5,
+      "seed": 2560
+    },
+    "replication": 1,
+    "parameters": {
+      "n_ants": 5
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1705.7142857142858,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 10,
+      "seed": 9518
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 10
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1246.5,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 10,
+      "seed": 1021
+    },
+    "replication": 1,
+    "parameters": {
+      "n_ants": 10
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1605.7368421052631,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 15,
+      "seed": 7933
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 15
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1407.608695652174,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 15,
+      "seed": 998
+    },
+    "replication": 1,
+    "parameters": {
+      "n_ants": 15
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1528.2857142857142,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 20,
+      "seed": 9665
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 20
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 1491.5833333333333,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 25,
+      "simulation_time": 300,
+      "traffic_pattern": "commuter",
+      "n_ants": 20,
+      "seed": 7703
+    },
+    "replication": 1,
+    "parameters": {
+      "n_ants": 20
+    }
+  }
+]

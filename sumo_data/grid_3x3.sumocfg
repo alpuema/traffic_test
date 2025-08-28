@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="grid_3x3.net.xml"/>
+        <route-files value="grid_3x3.rou.xml"/>
+        <additional-files value="vtype.add.xml"/>
+    </input>
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+    <time>
+        <end value="1200"/>
+    </time>
+    <processing>
+        <time-to-teleport value="300"/>
+    </processing>
+</configuration>

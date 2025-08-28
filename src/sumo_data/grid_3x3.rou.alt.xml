@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-08-27 16:20:10 by Eclipse SUMO duarouter Version 1.23.1
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_3x3.net.xml"/>
+        <route-files value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_aco_files\temp_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_3x3.rou.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="57.11" probability="1.00000000" edges="B2B1 B1B0 B0A0 A0A1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" depart="22.50" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="48.50" probability="1.00000000" edges="A2B2 B2A2 A2A1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="2" depart="45.00" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="57.84" probability="1.00000000" edges="C0B0 B0B1 B1B2 B2C2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="3" depart="67.50" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="72.87" probability="1.00000000" edges="C1C2 C2B2 B2A2 A2A1 A1A0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="4" depart="90.00" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="77.10" probability="1.00000000" edges="B1A1 A1B1 B1B0 B0A0 A0A1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="5" depart="112.50" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="46.92" probability="1.00000000" edges="A2A1 A1B1 B1B2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="6" depart="135.00" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="28.40" probability="1.00000000" edges="A0A1 A1B1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="7" depart="157.50" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="30.00" probability="1.00000000" edges="B2B1 B1C1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="8" depart="180.00" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="62.35" probability="1.00000000" edges="A2A1 A1B1 B1B2 B2A2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="9" depart="202.50" departLane="random" departSpeed="random">
+        <routeDistribution last="0">
+            <route cost="59.35" probability="1.00000000" edges="C1B1 B1B0 B0A0 A0A1"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

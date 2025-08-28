@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-08-27 16:17:47 by Eclipse SUMO duarouter Version 1.23.1
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_2x2.net.xml"/>
+        <route-files value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_aco_files\temp_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\sumo_data\grid_2x2.rou.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1" depart="30.00" departLane="random" departSpeed="random">
+        <route edges="A1A0 A0B0"/>
+    </vehicle>
+    <vehicle id="2" depart="60.00" departLane="random" departSpeed="random">
+        <route edges="B0B1"/>
+    </vehicle>
+    <vehicle id="3" depart="90.00" departLane="random" departSpeed="random">
+        <route edges="B1B0 B0A0 A0A1"/>
+    </vehicle>
+    <vehicle id="4" depart="120.00" departLane="random" departSpeed="random">
+        <route edges="A1B1 B1B0 B0A0 A0A1"/>
+    </vehicle>
+</routes>

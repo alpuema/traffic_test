@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trips>
+    <trip id="trip_0" depart="1.00" from="B2A2" to="A1B1"/>
+    <trip id="trip_1" depart="1.00" from="A1A2" to="B2B1"/>
+    <trip id="trip_2" depart="1.00" from="C1B1" to="B1A1"/>
+    <trip id="trip_3" depart="1.00" from="A1A0" to="C1B1"/>
+    <trip id="trip_4" depart="1.00" from="A0A1" to="B1B0"/>
+    <trip id="trip_5" depart="38.40" from="B1B2" to="B1B0"/>
+    <trip id="trip_6" depart="84.48" from="A1A2" to="B1A1"/>
+    <trip id="trip_7" depart="130.56" from="A1A2" to="B0B1"/>
+    <trip id="trip_8" depart="176.64" from="B2A2" to="C1B1"/>
+    <trip id="trip_9" depart="222.72" from="A1A0" to="A1B1"/>
+    <trip id="trip_10" depart="268.80" from="A2A1" to="B1C1"/>
+    <trip id="trip_11" depart="314.88" from="B2A2" to="C1B1"/>
+    <trip id="trip_12" depart="360.96" from="A1A0" to="B1A1"/>
+    <trip id="trip_13" depart="407.04" from="A1A2" to="B0A0"/>
+    <trip id="trip_14" depart="453.12" from="A1A2" to="A1B1"/>
+    <trip id="trip_15" depart="499.20" from="B1A1" to="B1C1"/>
+    <trip id="trip_16" depart="545.28" from="A0A1" to="A1A2"/>
+    <trip id="trip_17" depart="591.36" from="A0A1" to="B2B1"/>
+    <trip id="trip_18" depart="637.44" from="A1A0" to="A2B2"/>
+    <trip id="trip_19" depart="683.52" from="B1B0" to="B1A1"/>
+    <trip id="trip_20" depart="729.60" from="A2B2" to="B1C1"/>
+    <trip id="trip_21" depart="775.68" from="A0A1" to="B1C1"/>
+    <trip id="trip_22" depart="821.76" from="C1B1" to="B0B1"/>
+    <trip id="trip_23" depart="867.84" from="A1A2" to="B1C1"/>
+    <trip id="trip_24" depart="913.92" from="A0A1" to="B0B1"/>
+</trips>

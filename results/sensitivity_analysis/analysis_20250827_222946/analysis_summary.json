@@ -1,0 +1,82 @@
+{
+  "analysis_metadata": {
+    "total_runs": 12,
+    "successful_runs": 12,
+    "analysis_time_seconds": 676.3985061645508,
+    "parameter_ranges": {
+      "n_ants": [
+        10,
+        15,
+        20,
+        25
+      ]
+    }
+  },
+  "best_configuration": {
+    "parameters": {
+      "n_ants": 20
+    },
+    "mean_cost": 1407.8533333333335,
+    "std_cost": 216.25516122293024,
+    "mean_improvement": 0.0
+  },
+  "parameter_statistics": {
+    "[('n_ants', 10)]": {
+      "parameters": {
+        "n_ants": 10
+      },
+      "n_replications": 3,
+      "cost_mean": 1660.96,
+      "cost_std": 53.29274121929424,
+      "cost_min": 1591.16,
+      "cost_max": 1720.48,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 15)]": {
+      "parameters": {
+        "n_ants": 15
+      },
+      "n_replications": 3,
+      "cost_mean": 1479.32,
+      "cost_std": 204.4945717290967,
+      "cost_min": 1204.24,
+      "cost_max": 1694.16,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 20)]": {
+      "parameters": {
+        "n_ants": 20
+      },
+      "n_replications": 3,
+      "cost_mean": 1407.8533333333335,
+      "cost_std": 216.25516122293024,
+      "cost_min": 1171.8,
+      "cost_max": 1694.28,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 25)]": {
+      "parameters": {
+        "n_ants": 25
+      },
+      "n_replications": 3,
+      "cost_mean": 1472.3733333333332,
+      "cost_std": 180.01228205011154,
+      "cost_min": 1274.32,
+      "cost_max": 1709.92,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    }
+  },
+  "overall_statistics": {
+    "mean_cost_across_all": 1505.1266666666668,
+    "std_cost_across_all": 199.57063700744047,
+    "mean_improvement_across_all": 0.0
+  }
+}

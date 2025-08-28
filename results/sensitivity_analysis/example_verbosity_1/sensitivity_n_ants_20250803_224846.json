@@ -1,0 +1,770 @@
+[
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 5,
+      "run_number": 1,
+      "run_id": "20250803_224846",
+      "elapsed_time": 12.953455924987793,
+      "timestamp": "2025-08-03T22:48:59.218016"
+    },
+    "configuration": {
+      "n_ants": 5,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 27511.0,
+      "max_stop": 211.0,
+      "vehicle_count": 200,
+      "cost": 33841.0,
+      "solution": [
+        38,
+        46,
+        10,
+        44,
+        10,
+        54,
+        60,
+        34,
+        18,
+        40,
+        16,
+        16,
+        12,
+        40,
+        24,
+        42,
+        32,
+        10,
+        30,
+        60,
+        46,
+        34,
+        12,
+        18
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        40318.0,
+        40392.0,
+        33950.0,
+        38272.0,
+        33841.0
+      ],
+      "best_times": [
+        31648.0,
+        31212.0,
+        26330.0,
+        28402.0,
+        27511.0
+      ],
+      "best_maxstops": [
+        289.0,
+        306.0,
+        254.0,
+        329.0,
+        211.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -72.27143148035023,
+      "time_improvement_pct": -55.746150362318836,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 5,
+      "run_number": 2,
+      "run_id": "20250803_224846",
+      "elapsed_time": 11.39229965209961,
+      "timestamp": "2025-08-03T22:49:10.637304"
+    },
+    "configuration": {
+      "n_ants": 5,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 26836.0,
+      "max_stop": 270.0,
+      "vehicle_count": 200,
+      "cost": 34936.0,
+      "solution": [
+        22,
+        50,
+        26,
+        24,
+        36,
+        56,
+        42,
+        58,
+        50,
+        52,
+        12,
+        30,
+        26,
+        10,
+        16,
+        24,
+        24,
+        20,
+        26,
+        52,
+        14,
+        46,
+        28,
+        56
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        39523.0,
+        35094.0,
+        34936.0,
+        35704.0,
+        34956.0
+      ],
+      "best_times": [
+        31783.0,
+        28344.0,
+        26836.0,
+        28774.0,
+        28506.0
+      ],
+      "best_maxstops": [
+        258.0,
+        225.0,
+        270.0,
+        231.0,
+        215.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -77.84565261657504,
+      "time_improvement_pct": -51.92481884057971,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 10,
+      "run_number": 1,
+      "run_id": "20250803_224846",
+      "elapsed_time": 20.06758999824524,
+      "timestamp": "2025-08-03T22:49:30.740205"
+    },
+    "configuration": {
+      "n_ants": 10,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 25039.0,
+      "max_stop": 185.0,
+      "vehicle_count": 200,
+      "cost": 30589.0,
+      "solution": [
+        34,
+        44,
+        10,
+        24,
+        52,
+        52,
+        14,
+        26,
+        30,
+        32,
+        24,
+        18,
+        54,
+        10,
+        18,
+        22,
+        34,
+        22,
+        12,
+        24,
+        18,
+        48,
+        60,
+        56
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        32716.0,
+        33157.0,
+        33470.0,
+        32470.0,
+        30589.0
+      ],
+      "best_times": [
+        26536.0,
+        27097.0,
+        25790.0,
+        26260.0,
+        25039.0
+      ],
+      "best_maxstops": [
+        206.0,
+        202.0,
+        256.0,
+        207.0,
+        185.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -55.716758297699045,
+      "time_improvement_pct": -41.75158514492754,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 10,
+      "run_number": 2,
+      "run_id": "20250803_224846",
+      "elapsed_time": 22.98558497428894,
+      "timestamp": "2025-08-03T22:49:53.783543"
+    },
+    "configuration": {
+      "n_ants": 10,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 28101.0,
+      "max_stop": 209.0,
+      "vehicle_count": 200,
+      "cost": 34371.0,
+      "solution": [
+        58,
+        60,
+        50,
+        42,
+        10,
+        56,
+        50,
+        32,
+        14,
+        60,
+        26,
+        12,
+        32,
+        22,
+        40,
+        14,
+        60,
+        52,
+        18,
+        50,
+        12,
+        32,
+        36,
+        38
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        34371.0,
+        35022.0,
+        35234.0,
+        34447.0,
+        34941.0
+      ],
+      "best_times": [
+        28101.0,
+        27222.0,
+        27674.0,
+        27697.0,
+        27441.0
+      ],
+      "best_maxstops": [
+        209.0,
+        260.0,
+        252.0,
+        225.0,
+        250.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -74.96945632254123,
+      "time_improvement_pct": -59.08627717391305,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 15,
+      "run_number": 1,
+      "run_id": "20250803_224846",
+      "elapsed_time": 35.03576683998108,
+      "timestamp": "2025-08-03T22:50:28.894835"
+    },
+    "configuration": {
+      "n_ants": 15,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 26254.0,
+      "max_stop": 217.0,
+      "vehicle_count": 200,
+      "cost": 32764.0,
+      "solution": [
+        44,
+        40,
+        16,
+        10,
+        32,
+        54,
+        24,
+        40,
+        10,
+        20,
+        20,
+        16,
+        48,
+        20,
+        22,
+        60,
+        44,
+        12,
+        54,
+        38,
+        22,
+        34,
+        36,
+        32
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        32764.0,
+        34628.0,
+        36350.0,
+        36685.0,
+        34371.0
+      ],
+      "best_times": [
+        26254.0,
+        27128.0,
+        28940.0,
+        28885.0,
+        27471.0
+      ],
+      "best_maxstops": [
+        217.0,
+        250.0,
+        247.0,
+        260.0,
+        230.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -66.78884137650172,
+      "time_improvement_pct": -48.62998188405797,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 15,
+      "run_number": 2,
+      "run_id": "20250803_224846",
+      "elapsed_time": 36.21019792556763,
+      "timestamp": "2025-08-03T22:51:05.188035"
+    },
+    "configuration": {
+      "n_ants": 15,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 24917.0,
+      "max_stop": 182.0,
+      "vehicle_count": 200,
+      "cost": 30377.0,
+      "solution": [
+        54,
+        50,
+        10,
+        20,
+        30,
+        16,
+        36,
+        36,
+        14,
+        24,
+        28,
+        20,
+        34,
+        20,
+        28,
+        18,
+        46,
+        12,
+        54,
+        16,
+        26,
+        16,
+        38,
+        16
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        30377.0,
+        31678.0,
+        32404.0,
+        31250.0,
+        31092.0
+      ],
+      "best_times": [
+        24917.0,
+        25948.0,
+        25654.0,
+        25970.0,
+        25422.0
+      ],
+      "best_maxstops": [
+        182.0,
+        191.0,
+        225.0,
+        176.0,
+        189.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -54.63754836082264,
+      "time_improvement_pct": -41.06091485507246,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 20,
+      "run_number": 1,
+      "run_id": "20250803_224846",
+      "elapsed_time": 45.93617105484009,
+      "timestamp": "2025-08-03T22:51:51.226378"
+    },
+    "configuration": {
+      "n_ants": 20,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 23561.0,
+      "max_stop": 159.0,
+      "vehicle_count": 200,
+      "cost": 28331.0,
+      "solution": [
+        46,
+        50,
+        16,
+        38,
+        12,
+        36,
+        12,
+        28,
+        50,
+        10,
+        46,
+        12,
+        40,
+        18,
+        60,
+        20,
+        60,
+        38,
+        48,
+        24,
+        10,
+        10,
+        26,
+        10
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        32314.0,
+        35056.0,
+        31953.0,
+        32596.0,
+        28331.0
+      ],
+      "best_times": [
+        25624.0,
+        28576.0,
+        25323.0,
+        26956.0,
+        23561.0
+      ],
+      "best_maxstops": [
+        223.0,
+        216.0,
+        221.0,
+        188.0,
+        159.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -44.22215434738342,
+      "time_improvement_pct": -33.38428442028986,
+      "completion_rate": 100.0
+    }
+  },
+  {
+    "metadata": {
+      "param_name": "n_ants",
+      "param_value": 20,
+      "run_number": 2,
+      "run_id": "20250803_224846",
+      "elapsed_time": 48.52022123336792,
+      "timestamp": "2025-08-03T22:52:39.919289"
+    },
+    "configuration": {
+      "n_ants": 20,
+      "n_iterations": 5,
+      "evaporation": 0.5,
+      "alpha": 30.0,
+      "grid_size": 3,
+      "n_vehicles": 200,
+      "simulation_time": 1800,
+      "duration_range": [
+        10,
+        60
+      ]
+    },
+    "default_performance": {
+      "total_time": 17664.0,
+      "max_stop": 66.0,
+      "vehicle_count": 200,
+      "cost": 19644.0
+    },
+    "optimized_performance": {
+      "total_time": 24442.0,
+      "max_stop": 177.0,
+      "vehicle_count": 200,
+      "cost": 29752.0,
+      "solution": [
+        22,
+        36,
+        18,
+        26,
+        12,
+        18,
+        46,
+        24,
+        56,
+        34,
+        42,
+        22,
+        38,
+        12,
+        48,
+        14,
+        54,
+        10,
+        48,
+        58,
+        14,
+        16,
+        42,
+        34
+      ]
+    },
+    "optimization_progress": {
+      "best_costs": [
+        35208.0,
+        29752.0,
+        33456.0,
+        32391.0,
+        30091.0
+      ],
+      "best_times": [
+        28068.0,
+        24442.0,
+        27666.0,
+        25971.0,
+        25021.0
+      ],
+      "best_maxstops": [
+        238.0,
+        177.0,
+        193.0,
+        214.0,
+        169.0
+      ],
+      "best_vehicle_counts": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    "performance_metrics": {
+      "improvement_pct": -51.45591529220118,
+      "time_improvement_pct": -38.37182971014493,
+      "completion_rate": 100.0
+    }
+  }
+]
