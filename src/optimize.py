@@ -20,15 +20,16 @@ import json
 import argparse
 from datetime import datetime
 
-# Since we're now in src/, import directly from current directory
-from optimization.simple_aco import run_simplified_aco_optimization
-from simplified_traffic import (
+# Use package-relative imports so this works when imported as `src.optimize`
+from .optimization.simple_aco import run_traditional_aco_optimization
+from .simplified_traffic import (
     generate_network_and_routes, 
     save_optimized_solution, 
     load_solution,
     evaluate_solution_with_new_seed,
     list_available_patterns
 )
+from typing import List, Dict, Any, Optional, Tuple
 
 # ============================================================================
 # MAIN OPTIMIZATION INTERFACE
@@ -76,14 +77,14 @@ def run_complete_optimization(config):
     }
     
     # Temporarily update paths for ACO to find generated files
-    import optimization.simple_aco as aco
+    from .optimization import simple_aco as aco
     original_values = {}
     for key, value in aco_config.items():
         if hasattr(aco, key.upper()):
             original_values[key.upper()] = getattr(aco, key.upper())
             setattr(aco, key.upper(), value)
     
-    optimization_result = run_simplified_aco_optimization(aco_config)
+    optimization_result = run_traditional_aco_optimization(aco_config)
     
     # Restore original values
     for key, value in original_values.items():
@@ -134,6 +135,102 @@ def run_complete_optimization(config):
     print_summary(complete_result)
     
     return complete_result
+
+
+# ============================================================================
+# SIMPLE WRAPPER CLASS FOR EXAMPLES
+# ============================================================================
+
+class ACOTrafficOptimizer:
+    """
+    Thin wrapper to provide a simple interface expected by examples.
+
+    Note: SUMO files are expected to be generated beforehand (via
+    simplified_traffic.create_traffic_scenario or generate_network_and_routes).
+    This class maps high-level parameters to the underlying ACO function.
+    """
+
+    def __init__(
+        self,
+        sumo_config: Optional[str] = None,
+        n_ants: int = 20,
+        n_iterations: int = 10,
+        alpha: float = 1.0,
+        beta: float = 2.0,
+        rho: float = 0.5,
+        verbose: bool = True,
+        scenario_vehicles: int = None,  # Allow passing actual vehicle count
+        simulation_time: int = None,  # Allow passing simulation time
+        show_plots: bool = True,  # Show optimization progress plots
+        show_sumo_gui: bool = False,  # Launch SUMO GUI with results
+        compare_baseline: bool = True,  # Compare against baseline uniform timing
+    ) -> None:
+        # Stored for completeness; current ACO doesn't use beta directly
+        self.sumo_config = sumo_config
+        self.n_ants = n_ants
+        self.n_iterations = n_iterations
+        self.alpha = alpha
+        self.beta = beta
+        self.rho = rho
+        self.verbose = verbose
+        self.scenario_vehicles = scenario_vehicles
+        self.simulation_time = simulation_time
+        self.show_plots = show_plots
+        self.show_sumo_gui = show_sumo_gui
+        self.compare_baseline = compare_baseline
+
+    def optimize(self) -> Tuple[Dict[str, Dict[str, int]], float, List[Dict[str, float]], Optional[Dict]]:
+        """
+        Run optimization and return (best_solution_dict, best_cost, optimization_data, baseline_comparison).
+
+        best_solution_dict maps phase identifiers to timing info for simple display.
+        optimization_data is a list of {'best_cost': value} per iteration.
+        baseline_comparison contains comparison against uniform 30s/4s timing (if enabled).
+        """
+        # Build config for underlying optimizer
+        config = {
+            'n_ants': self.n_ants,
+            'n_iterations': self.n_iterations,
+            # Map alpha -> stop_penalty used in cost function
+            'stop_penalty': self.alpha,
+            # Provide some stability params derived from rho (evaporation)
+            'evaporation_rate': max(0.01, min(0.9, self.rho)),
+            # Pass through actual vehicle count if available
+            'n_vehicles': self.scenario_vehicles or 30,  # Default to 30 if not provided
+            # Pass through simulation time if available
+            'simulation_time': self.simulation_time,
+        }
+
+        results = run_traditional_aco_optimization(
+            config=config, 
+            show_plots_override=self.show_plots,
+            show_gui_override=self.show_sumo_gui,
+            compare_baseline=self.compare_baseline
+        )
+        if not results.get('success'):
+            raise RuntimeError(results.get('error', 'Optimization failed'))
+
+        # Convert best solution list + phase types into a friendly dict
+        durations: List[int] = results.get('best_solution') or []
+        phase_types: List[bool] = results.get('phase_types') or [True] * len(durations)
+        best_cost: float = float(results.get('best_cost', float('inf')))
+
+        solution_dict: Dict[str, Dict[str, int]] = {}
+        for idx, dur in enumerate(durations):
+            key = f'phase_{idx}'
+            if idx < len(phase_types) and not phase_types[idx]:
+                solution_dict[key] = {'yellow': int(dur)}
+            else:
+                solution_dict[key] = {'green': int(dur)}
+
+        # Build optimization_data as list of dicts with best_cost per iteration
+        cost_history: List[float] = results.get('cost_history') or []
+        optimization_data = [{'best_cost': float(c)} for c in cost_history]
+        
+        # Get baseline comparison results
+        baseline_comparison = results.get('baseline_comparison')
+
+        return solution_dict, best_cost, optimization_data, baseline_comparison
 
 def evaluate_existing_solution(solution_file, new_seed, config=None):
     """

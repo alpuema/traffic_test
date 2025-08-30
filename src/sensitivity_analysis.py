@@ -21,11 +21,11 @@ from concurrent.futures import ProcessPoolExecutor
 from functools import partial
 from typing import Dict, List, Any, Tuple, Optional, Union
 
-# Add current directory to path for imports
+# Prefer package-relative imports when used as `src` package
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from simplified_traffic import generate_network_and_routes
-from optimization.simple_aco import run_simplified_aco_optimization
+from .simplified_traffic import generate_network_and_routes
+from .optimization.simple_aco import run_traditional_aco_optimization
 
 
 def run_sensitivity_analysis(
@@ -144,7 +144,8 @@ def run_simple_parameter_sweep(
     base_config: Dict[str, Any],
     n_replications: int = 5,
     show_individual_plots: bool = False,
-    show_final_plot: bool = True
+    show_final_plot: bool = True,
+    compare_baseline: bool = False
 ) -> Dict[str, Any]:
     """
     Simplified wrapper for single-parameter sensitivity analysis.
@@ -156,6 +157,7 @@ def run_simple_parameter_sweep(
         n_replications: Number of replications per value
         show_individual_plots: Show plots for each individual optimization run
         show_final_plot: Show final summary plot after analysis completes
+        compare_baseline: Whether to compare each optimization to baseline (30s green, 4s yellow)
         
     Returns:
         Analysis results with statistics and plot
@@ -165,9 +167,13 @@ def run_simple_parameter_sweep(
         >>> results = run_simple_parameter_sweep('n_ants', [10, 20, 30], config)
     """
     
+    # Add baseline comparison to base config if requested
+    config_with_baseline = base_config.copy()
+    config_with_baseline['compare_baseline'] = compare_baseline
+    
     return run_sensitivity_analysis(
         parameter_ranges={parameter_name: parameter_values},
-        base_config=base_config,
+        base_config=config_with_baseline,
         n_replications=n_replications,
         parallel=False,  # Simpler for single parameter
         show_individual_plots=show_individual_plots,
@@ -290,8 +296,12 @@ def _run_single_optimization(config: Dict[str, Any], show_plots: bool = False) -
     if not scenario_result['success']:
         raise Exception(f"Scenario generation failed: {scenario_result['error']}")
     
-    # Run optimization with configurable plot display
-    optimization_result = run_simplified_aco_optimization(clean_config, show_plots_override=show_plots)
+    # Run optimization with configurable plot display and baseline comparison
+    optimization_result = run_traditional_aco_optimization(
+        clean_config, 
+        show_plots_override=show_plots,
+        compare_baseline=clean_config.get('compare_baseline', False)
+    )
     
     if not optimization_result['success']:
         raise Exception(f"Optimization failed: {optimization_result['error']}")

@@ -1,0 +1,42 @@
+[
+  {
+    "success": true,
+    "best_cost": 36.0,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 20,
+      "simulation_time": 60,
+      "traffic_pattern": "balanced",
+      "n_ants": 5,
+      "n_iterations": 2,
+      "compare_baseline": true,
+      "seed": 2211
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 5
+    }
+  },
+  {
+    "success": true,
+    "best_cost": 33.0,
+    "improvement_pct": 0,
+    "optimization_time": 0,
+    "configuration": {
+      "grid_size": 3,
+      "n_vehicles": 20,
+      "simulation_time": 60,
+      "traffic_pattern": "balanced",
+      "n_ants": 8,
+      "n_iterations": 2,
+      "compare_baseline": true,
+      "seed": 5675
+    },
+    "replication": 0,
+    "parameters": {
+      "n_ants": 8
+    }
+  }
+]

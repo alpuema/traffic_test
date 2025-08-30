@@ -9,7 +9,7 @@
         <tripinfo-output value="tripinfo.xml"/>
     </output>
     <time>
-        <end value="1200"/>
+        <end value="1400"/>
     </time>
     <processing>
         <time-to-teleport value="300"/>

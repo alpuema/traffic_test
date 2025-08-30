@@ -22,26 +22,26 @@ from datetime import datetime
 
 TRAFFIC_PATTERNS = {
     'commuter': {
-        'description': 'Rush hour commuter pattern - suburbs to downtown (perimeter to center)',
-        'explanation': 'Vehicles start from outer edges (suburbs/residential) and travel to inner city center (downtown/business district). Mimics typical morning rush hour but balanced to avoid extreme concentration.',
-        'source_weights': {'perimeter': 2.0, 'center': 0.5},
-        'sink_weights': {'center': 2.0, 'perimeter': 0.5},
+        'description': 'Rush hour commuter pattern - 90% perimeter to 90% center',
+        'explanation': 'Vehicles start from outer edges (95% perimeter ONLY) and travel to city center (95% center). Clear commuter flow pattern.',
+        'source_weights': {'perimeter_only': 98.0, 'all': 0.1},
+        'sink_weights': {'center_only': 98.0, 'all': 0.1},
         'time_distribution': 'early_heavy'
     },
     
     'industrial': {
-        'description': 'Industrial corridor pattern - horizontal left-to-right traffic flow',
-        'explanation': 'Vehicles travel horizontally across the grid, primarily from left side to right side. Simulates industrial zones with main cargo/freight corridors but includes some return traffic.',
-        'source_weights': {'left_edge': 2.0, 'right_edge': 0.5},
-        'sink_weights': {'right_edge': 2.0, 'left_edge': 0.5}, 
+        'description': 'Industrial corridor pattern - 90% leftmost to 90% rightmost',
+        'explanation': 'Industrial traffic: 100% departures from column 0 ONLY, 100% arrivals at rightmost column ONLY. Pure left-to-right flow.',
+        'source_weights': {'column_0_only': 100.0},
+        'sink_weights': {'rightmost_column_only': 100.0}, 
         'time_distribution': 'shift_based'
     },
     
     'random': {
         'description': 'Completely random vehicle origins and destinations',
         'explanation': 'Pure random selection - useful for testing and comparison. No spatial patterns or correlations.',
-        'source_weights': {'all': 1.0},
-        'sink_weights': {'all': 1.0},
+        'source_weights': {'all': 10.0},
+        'sink_weights': {'all': 10.0},
         'time_distribution': 'uniform'
     }
 }
@@ -132,6 +132,33 @@ def generate_network_and_routes(grid_size, n_vehicles, sim_time, pattern='commut
     except Exception as e:
         print(f"❌ Error generating scenario: {e}")
         return {'success': False, 'error': str(e)}
+
+
+def create_traffic_scenario(grid_size, n_vehicles, simulation_time, pattern='commuter', seed=None):
+    """
+    Compatibility wrapper used by examples.
+
+    Returns a dict including 'config_file' pointing to the generated .sumocfg file.
+    """
+    result = generate_network_and_routes(
+        grid_size=grid_size,
+        n_vehicles=n_vehicles,
+        sim_time=simulation_time,
+        pattern=pattern,
+        seed=seed,
+    )
+    if not result.get('success'):
+        raise RuntimeError(result.get('error', 'Failed to create traffic scenario'))
+    files = result.get('files', {})
+    return {
+        'config_file': files.get('config'),
+        'files': files,
+        'pattern': result.get('pattern'),
+        'seed': result.get('seed'),
+        'grid_size': result.get('grid_size'),
+        'n_vehicles': result.get('n_vehicles'),
+        'simulation_time': result.get('sim_time'),
+    }
 
 def generate_grid_network(grid_size, output_file):
     """Generate a grid network using SUMO's netgenerate."""
@@ -232,49 +259,253 @@ def get_network_edges(net_file):
         return []
 
 def categorize_edges(edges):
-    """Categorize edges by their likely function (perimeter, center, etc.)."""
-    # This is a simplified categorization based on edge names
-    # In a real scenario, you might use coordinates or other attributes
-    
+    """Categorize edges by their location and function for pattern generation."""
     categories = {
         'all': edges,
         'perimeter': [],
         'center': [],
-        'residential': [],
-        'commercial': [],
-        'industrial': [],
-        'main_roads': []
+        'perimeter_only': [],      # Edges that ONLY touch perimeter (for strict commuter pattern)
+        'center_only': [],         # Edges that are ONLY internal (for strict commuter pattern)
+        'column_0_only': [],       # Edges that start ONLY from column 0 (for strict industrial)
+        'rightmost_column_only': [], # Edges that end ONLY at rightmost column (for strict industrial)
+        'left_edge': [],
+        'right_edge': [],
+        'leftmost_edge': [],    # Edges involving leftmost column
+        'rightmost_edge': [],   # Edges involving rightmost column
+        'leftmost_column': [],  # Edges strictly from column 0 only
+        'rightmost_column': [], # Edges strictly to rightmost column only
+        'top_edge': [],
+        'bottom_edge': [],
+        'outer_ring': [],
+        'inner_core': []
     }
     
-    for edge in edges:
-        # Simple heuristic based on edge naming
-        if any(char in edge for char in ['A0', 'A2', '0A', '2A']):  # Corner/edge positions
-            categories['perimeter'].append(edge)
-        elif 'B1' in edge or '1B' in edge:  # Center area
-            categories['center'].append(edge)
-        else:
-            categories['residential'].append(edge)
+    # Detect grid size by finding max coordinates in edges
+    max_row_idx = 0
+    max_col_idx = 0
     
-    # Fill empty categories with all edges as fallback
+    for edge in edges:
+        if len(edge) == 4:
+            start_row, start_col, end_row, end_col = edge[0], edge[1], edge[2], edge[3]
+            if start_row.isalpha() and start_col.isdigit() and end_row.isalpha() and end_col.isdigit():
+                start_row_idx = ord(start_row) - ord('A')
+                end_row_idx = ord(end_row) - ord('A')
+                start_col_idx = int(start_col)
+                end_col_idx = int(end_col)
+                
+                max_row_idx = max(max_row_idx, start_row_idx, end_row_idx)
+                max_col_idx = max(max_col_idx, start_col_idx, end_col_idx)
+    
+    for edge in edges:
+        # SUMO grid edges follow pattern like "A0B0", "B1C1", etc.
+        # Format: [StartRow][StartCol][EndRow][EndCol]
+        # A=top, B=middle, C=bottom (rows)
+        # 0=left, 1=middle, 2=right (cols)
+        
+        if len(edge) == 4:
+            start_row, start_col, end_row, end_col = edge[0], edge[1], edge[2], edge[3]
+            
+            # Convert to coordinates for easier analysis
+            # A=0, B=1, C=2, D=3... (row indices)
+            # 0, 1, 2, 3... (column indices)
+            start_row_idx = ord(start_row) - ord('A') if start_row.isalpha() else 0
+            end_row_idx = ord(end_row) - ord('A') if end_row.isalpha() else 0
+            start_col_idx = int(start_col) if start_col.isdigit() else 0
+            end_col_idx = int(end_col) if end_col.isdigit() else 0
+            
+            # Determine edge type based on start and end positions
+            
+            # STRICT COLUMN 0 ONLY: Edges that start from column 0 AND don't go to inner areas
+            if start_col_idx == 0:
+                categories['column_0_only'].append(edge)
+                categories['leftmost_column'].append(edge)
+                categories['leftmost_edge'].append(edge)
+                categories['left_edge'].append(edge)
+            
+            # STRICT RIGHTMOST COLUMN ONLY: Edges that end at the rightmost column AND come from appropriate sources
+            if end_col_idx == max_col_idx:
+                categories['rightmost_column_only'].append(edge)
+                categories['rightmost_column'].append(edge)
+                categories['rightmost_edge'].append(edge)
+                categories['right_edge'].append(edge)
+            
+            # LEFT EDGES: Any edge involving leftmost column (broader definition)
+            if start_col_idx == 0 or end_col_idx == 0:
+                if edge not in categories['left_edge']:
+                    categories['left_edge'].append(edge)
+            
+            # RIGHT EDGES: Any edge involving rightmost column (broader definition)  
+            if start_col_idx == max_col_idx or end_col_idx == max_col_idx:
+                if edge not in categories['right_edge']:
+                    categories['right_edge'].append(edge)
+            
+            # TOP EDGES: Start from or go to top row (A)
+            if start_row_idx == 0 or end_row_idx == 0:
+                categories['top_edge'].append(edge)
+            
+            # BOTTOM EDGES: Start from or go to bottom row
+            if start_row_idx == max_row_idx or end_row_idx == max_row_idx:
+                categories['bottom_edge'].append(edge)
+            
+            # PERIMETER EDGES: Any edge touching the grid boundary
+            is_perimeter = (start_row_idx == 0 or start_row_idx == max_row_idx or 
+                           start_col_idx == 0 or start_col_idx == max_col_idx or
+                           end_row_idx == 0 or end_row_idx == max_row_idx or 
+                           end_col_idx == 0 or end_col_idx == max_col_idx)
+                           
+            # STRICT PERIMETER ONLY: Edges that START from boundary (for origins)
+            is_boundary_start = (start_row_idx == 0 or start_row_idx == max_row_idx or 
+                                start_col_idx == 0 or start_col_idx == max_col_idx)
+            is_boundary_end = (end_row_idx == 0 or end_row_idx == max_row_idx or 
+                              end_col_idx == 0 or end_col_idx == max_col_idx)
+            
+            if is_perimeter:
+                categories['perimeter'].append(edge)
+                categories['outer_ring'].append(edge)
+            
+            # Add to perimeter_only ONLY if it starts from boundary (for commuter origins)
+            if is_boundary_start:
+                categories['perimeter_only'].append(edge)
+            
+            # STRICT CENTER ONLY: Different rules for origins vs destinations
+            start_is_internal = (0 < start_row_idx < max_row_idx and 0 < start_col_idx < max_col_idx)
+            end_is_internal = (0 < end_row_idx < max_row_idx and 0 < end_col_idx < max_col_idx)
+            
+            # Center category (broad)
+            if start_is_internal and end_is_internal:
+                categories['center'].append(edge)
+                categories['inner_core'].append(edge)
+            elif start_is_internal or end_is_internal:
+                categories['center'].append(edge)
+                
+            # Center_only category (strict - for destinations, edges that END in center)
+            if end_is_internal:
+                categories['center_only'].append(edge)
+    
+    # Ensure no empty categories - use fallback distributions
+    total_edges = len(edges)
+    if total_edges > 0:
+        # Strict fallbacks for new categories
+        if not categories['perimeter_only']:
+            # Fallback: edges that start from boundary rows/columns only
+            for edge in edges:
+                if len(edge) == 4 and edge[0].isalpha() and edge[1].isdigit():
+                    start_row_idx = ord(edge[0]) - ord('A')
+                    start_col_idx = int(edge[1])
+                    if (start_row_idx == 0 or start_row_idx == max_row_idx or 
+                        start_col_idx == 0 or start_col_idx == max_col_idx):
+                        categories['perimeter_only'].append(edge)
+            
+        if not categories['center_only']:
+            # Fallback: edges that end in internal positions
+            for edge in edges:
+                if len(edge) == 4 and edge[2].isalpha() and edge[3].isdigit():
+                    end_row_idx = ord(edge[2]) - ord('A')
+                    end_col_idx = int(edge[3])
+                    if (0 < end_row_idx < max_row_idx and 0 < end_col_idx < max_col_idx):
+                        categories['center_only'].append(edge)
+                        
+        if not categories['column_0_only']:
+            # Fallback: edges that start with column 0
+            categories['column_0_only'] = [e for e in edges if len(e) >= 2 and e[1] == '0'][:max(1, total_edges//4)]
+            
+        if not categories['rightmost_column_only']:
+            # Fallback: edges that end with max column index
+            max_col_str = str(max_col_idx)
+            categories['rightmost_column_only'] = [e for e in edges if len(e) >= 4 and e[3] == max_col_str][:max(1, total_edges//4)]
+            
+        # Existing fallbacks
+        if not categories['leftmost_column']:
+            categories['leftmost_column'] = [e for e in edges if len(e) >= 2 and e[1] == '0'][:max(1, total_edges//4)]
+            
+        if not categories['rightmost_column']:
+            max_col_str = str(max_col_idx)
+            categories['rightmost_column'] = [e for e in edges if len(e) >= 4 and e[3] == max_col_str][:max(1, total_edges//4)]
+            
+        if not categories['leftmost_edge']:
+            categories['leftmost_edge'] = [e for e in edges if len(e) >= 2 and e[1] == '0'][:max(1, total_edges//4)]
+            
+        if not categories['rightmost_edge']:
+            max_col_str = str(max_col_idx)
+            categories['rightmost_edge'] = [e for e in edges if len(e) >= 4 and e[3] == max_col_str][:max(1, total_edges//4)]
+            
+        if not categories['center']:
+            mid_start = total_edges // 3
+            mid_end = 2 * total_edges // 3
+            categories['center'] = edges[mid_start:mid_end] if mid_end > mid_start else [edges[total_edges//2]]
+            
+        if not categories['perimeter']:
+            categories['perimeter'] = []
+            for edge in edges:
+                if len(edge) == 4 and edge[0].isalpha() and edge[1].isdigit():
+                    start_row_idx = ord(edge[0]) - ord('A')
+                    start_col_idx = int(edge[1])
+                    end_row_idx = ord(edge[2]) - ord('A') 
+                    end_col_idx = int(edge[3])
+                    
+                    if (start_row_idx == 0 or start_row_idx == max_row_idx or start_col_idx == 0 or start_col_idx == max_col_idx or
+                        end_row_idx == 0 or end_row_idx == max_row_idx or end_col_idx == 0 or end_col_idx == max_col_idx):
+                        categories['perimeter'].append(edge)
+            
+            if not categories['perimeter']:  # Ultimate fallback
+                categories['perimeter'] = edges[:total_edges//2] + edges[-total_edges//2:]
+    
+    # Final fallback - ensure no completely empty categories
     for category in categories:
         if category != 'all' and not categories[category]:
-            categories[category] = edges
+            categories[category] = edges.copy()
     
     return categories
 
 def select_weighted_edge(edge_categories, weights):
-    """Select an edge based on weighted categories."""
-    # Create weighted pool of edges
+    """Select an edge based on weighted categories with exclusive selection."""
+    # Create weighted pool of edges with exclusive selection
     weighted_edges = []
     
+    # Process weights to handle exclusive categories
     for category, weight in weights.items():
-        if category in edge_categories:
-            for edge in edge_categories[category]:
-                # Add edge multiple times based on weight
+        if category in edge_categories and weight > 0:
+            category_edges = edge_categories[category]
+            
+            # For exclusive patterns, remove edges that might be in overlapping categories
+            if category == 'perimeter_only':
+                # Ensure edges are ONLY from perimeter, not also in center categories
+                exclusive_edges = [e for e in category_edges 
+                                 if e not in edge_categories.get('center_only', []) 
+                                 and e not in edge_categories.get('center', [])]
+                if exclusive_edges:
+                    category_edges = exclusive_edges
+                    
+            elif category == 'center_only':
+                # Ensure edges are ONLY for center, not also in perimeter origin categories  
+                exclusive_edges = category_edges  # center_only is already exclusive for destinations
+                
+            elif category == 'column_0_only':
+                # Ensure edges are ONLY from column 0
+                exclusive_edges = [e for e in category_edges 
+                                 if len(e) >= 2 and e[1] == '0']
+                if exclusive_edges:
+                    category_edges = exclusive_edges
+                    
+            elif category == 'rightmost_column_only':
+                # Already exclusive by definition
+                exclusive_edges = category_edges
+            
+            # Add edges multiple times based on weight
+            for edge in category_edges:
                 weighted_edges.extend([edge] * int(weight * 10))
     
     if not weighted_edges:
-        weighted_edges = edge_categories.get('all', ['edge1', 'edge2'])
+        # For exclusive patterns, avoid falling back to 'all'
+        # Try to find any available edges from exclusive categories first
+        for category in ['column_0_only', 'rightmost_column_only', 'perimeter_only', 'center_only']:
+            if category in edge_categories and edge_categories[category]:
+                weighted_edges = edge_categories[category]
+                break
+        
+        # If still no edges, then fall back to 'all'
+        if not weighted_edges:
+            weighted_edges = edge_categories.get('all', ['edge1', 'edge2'])
     
     return random.choice(weighted_edges)
 
@@ -442,7 +673,7 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
         sim_time: Optional override for simulation time
     
     Returns:
-        Dictionary with evaluation results
+        Dictionary with evaluation results including performance metrics
     """
     # Load solution
     solution_data = load_solution(solution_file)
@@ -468,16 +699,63 @@ def evaluate_solution_with_new_seed(solution_file, new_seed, n_vehicles=None, si
     if not scenario_result['success']:
         return {'success': False, 'error': 'Scenario generation failed'}
     
-    # Apply solution and evaluate
-    # (This would integrate with the evaluation system)
-    
-    return {
-        'success': True,
-        'original_seed': metadata.get('seed'),
-        'new_seed': new_seed,
-        'solution': solution,
-        'scenario_files': scenario_result['files']
-    }
+    # Now actually evaluate the performance using SUMO simulation
+    try:
+        # Import the evaluation function from ACO module
+        from .optimization.simple_aco import evaluate_solution, calculate_cost
+        import tempfile
+        import os
+        
+        # Create temporary directory for simulation
+        with tempfile.TemporaryDirectory() as temp_dir:
+            # Set simulation time in the ACO module's global variable
+            import src.optimization.simple_aco as aco_module
+            original_sim_time = aco_module.SIMULATION_TIME
+            aco_module.SIMULATION_TIME = sim_time
+            
+            try:
+                # Run evaluation
+                metrics = evaluate_solution(
+                    solution=solution,
+                    net_file=scenario_result['files']['network'],
+                    route_file=scenario_result['files']['routes'],
+                    temp_dir=temp_dir
+                )
+                
+                # Calculate cost using the same function as optimization
+                cost = calculate_cost(metrics)
+                
+                # Average travel time per vehicle
+                avg_time = metrics.get('total_time', 0) / max(metrics.get('vehicles', 1), 1)
+                
+                print(f"   ✅ Evaluation completed:")
+                print(f"      • Vehicles: {metrics.get('vehicles', 0)}/{n_vehicles}")
+                print(f"      • Avg travel time: {avg_time:.1f}s")
+                print(f"      • Cost: {cost:.1f}")
+                
+                return {
+                    'success': True,
+                    'original_seed': metadata.get('seed'),
+                    'new_seed': new_seed,
+                    'solution': solution,
+                    'scenario_files': scenario_result['files'],
+                    'metrics': metrics,
+                    'cost': cost,
+                    'avg_travel_time': avg_time
+                }
+            finally:
+                # Restore original simulation time
+                aco_module.SIMULATION_TIME = original_sim_time
+            
+    except Exception as e:
+        print(f"   ❌ Evaluation failed: {e}")
+        return {
+            'success': False,
+            'error': f'Simulation evaluation failed: {e}',
+            'original_seed': metadata.get('seed'),
+            'new_seed': new_seed,
+            'scenario_generated': True
+        }
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -498,7 +776,7 @@ if __name__ == "__main__":
     print("🧪 Testing traffic pattern generation")
     
     result = generate_network_and_routes(
-        grid_size=3,
+        grid_size=4,
         n_vehicles=20,
         sim_time=600,
         pattern='commuter',

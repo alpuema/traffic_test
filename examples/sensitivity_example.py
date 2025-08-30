@@ -73,8 +73,8 @@ QUICK_DEMO_CONFIG = {
 # ----------------------------------------
 SINGLE_PARAM_CONFIG = {
     'parameter': 'n_ants',             # Parameter to analyze
-    'values': [10, 50, 100, 200],        # Values to test
-    'replications': 4                  # Replications per value
+    'values': [10, 50, 100, 150, 200],        # Values to test
+    'replications': 2                  # Replications per value
 }
 
 # ----------------------------------------
@@ -110,6 +110,11 @@ DISPLAY_CONFIG = {
     'output_dir': None                 # Output directory (None = auto-generate)
 }
 
+# ----------------------------------------
+# BASELINE COMPARISON
+# ----------------------------------------
+COMPARE_BASELINE = True  # Whether to compare each optimization result to baseline (30s green, 4s yellow)
+
 # ============================================================================
 # 🔧 ANALYSIS FUNCTIONS (Usually no need to modify below this line)
 # ============================================================================
@@ -126,6 +131,14 @@ def run_quick_sensitivity_demo():
     print("   • Finds which settings give the best performance")
     print("   • Shows how sensitive results are to parameter changes")
     print("   • Generates statistics and visualizations")
+    
+    if COMPARE_BASELINE:
+        print()
+        print("📏 Baseline Comparison Enabled:")
+        print("   • Each optimization result will be compared to a baseline")
+        print("   • Baseline uses uniform timing: 30s green, 4s yellow")
+        print("   • Shows improvement percentage over baseline")
+        print("   • Red time is automatically derived (varies by intersection)")
     print()
     
     # Display current configuration
@@ -188,7 +201,8 @@ def run_quick_sensitivity_demo():
             base_config=BASE_CONFIG,
             n_replications=QUICK_DEMO_CONFIG['replications'],
             show_individual_plots=DISPLAY_CONFIG['show_individual_plots'],
-            show_final_plot=DISPLAY_CONFIG['show_summary_plots']
+            show_final_plot=DISPLAY_CONFIG['show_summary_plots'],
+            compare_baseline=COMPARE_BASELINE
         )
         
         print(f"✅ Parameter analysis completed!")
@@ -268,7 +282,8 @@ def run_single_parameter_analysis():
             base_config=BASE_CONFIG,
             n_replications=SINGLE_PARAM_CONFIG['replications'],
             show_individual_plots=DISPLAY_CONFIG['show_individual_plots'],
-            show_final_plot=DISPLAY_CONFIG['show_summary_plots']
+            show_final_plot=DISPLAY_CONFIG['show_summary_plots'],
+            compare_baseline=COMPARE_BASELINE
         )
         
         print(f"✅ Detailed analysis completed!")
@@ -320,7 +335,7 @@ def run_multi_parameter_analysis():
         
         results = run_sensitivity_analysis(
             parameter_ranges=MULTI_PARAM_CONFIG['parameter_ranges'],
-            base_config=BASE_CONFIG,
+            base_config={**BASE_CONFIG, 'compare_baseline': COMPARE_BASELINE},
             n_replications=MULTI_PARAM_CONFIG['replications'],
             parallel=MULTI_PARAM_CONFIG['parallel'],
             max_workers=MULTI_PARAM_CONFIG.get('max_workers'),

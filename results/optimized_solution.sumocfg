@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="c:\Users\alfon\PycharmProjects\my_grid_simulation\results\optimized_solution.net.xml"/>
+        <route-files value="c:\Users\alfon\PycharmProjects\my_grid_simulation\sumo_data\grid_4x4.rou.xml"/>
+        <additional-files value="c:\Users\alfon\PycharmProjects\my_grid_simulation\sumo_data\vtype.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="1800"/>
+        <step-length value="1"/>
+    </time>
+    <gui>
+        <gui-settings-file value=""/>
+        <window-size value="1000,800"/>
+        <window-pos value="50,50"/>
+        <start value="true"/>
+    </gui>
+    <processing>
+        <time-to-teleport value="300"/>
+        <max-depart-delay value="900"/>
+    </processing>
+</configuration>

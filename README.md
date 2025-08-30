@@ -86,7 +86,7 @@ python examples/train_evaluate.py
 ### Training Phase
 Train ACO to find optimal traffic light settings:
 ```python
-from src.optimization.simple_aco import run_simplified_aco_optimization
+from src.optimization.simple_aco import run_traditional_aco_optimization
 
 config = {
     'grid_size': 3,
@@ -96,7 +96,7 @@ config = {
     'n_iterations': 10
 }
 
-results = run_simplified_aco_optimization(config)
+results = run_traditional_aco_optimization(config)
 )
 ```
 
