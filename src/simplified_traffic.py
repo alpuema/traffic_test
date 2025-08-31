@@ -570,6 +570,8 @@ def convert_trips_to_routes(net_file, trips_file, route_file):
         ], capture_output=True, text=True)
         
         if result.returncode == 0:
+            # Sort route file by departure time (SUMO requires this)
+            sort_route_file_by_departure_time(route_file)
             print(f"   ✅ Routes generated: {route_file}")
             return True
         else:
@@ -579,6 +581,36 @@ def convert_trips_to_routes(net_file, trips_file, route_file):
     except Exception as e:
         print(f"   ❌ Error converting trips to routes: {e}")
         return False
+
+def sort_route_file_by_departure_time(route_file):
+    """Sort vehicles in route file by departure time (required by SUMO)."""
+    try:
+        tree = ET.parse(route_file)
+        root = tree.getroot()
+        
+        # Extract all vehicle elements with their departure times
+        vehicles = []
+        for vehicle in root.findall('vehicle'):
+            depart_time = float(vehicle.get('depart', '0'))
+            vehicles.append((depart_time, vehicle))
+        
+        # Sort by departure time
+        vehicles.sort(key=lambda x: x[0])
+        
+        # Clear existing vehicles and add them back in sorted order
+        for vehicle in root.findall('vehicle'):
+            root.remove(vehicle)
+        
+        for _, vehicle in vehicles:
+            root.append(vehicle)
+        
+        # Write sorted file
+        tree.write(route_file, xml_declaration=True, encoding='UTF-8')
+        print(f"   ✅ Route file sorted by departure time")
+        
+    except Exception as e:
+        print(f"   ⚠️  Warning: Could not sort route file: {e}")
+        # Don't fail the whole process for this
 
 def create_vehicle_types_file(vtype_file):
     """Create vehicle types definition file."""

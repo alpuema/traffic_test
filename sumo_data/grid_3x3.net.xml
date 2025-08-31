@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-30 18:58:33 by Eclipse SUMO netgenerate Version 1.23.1
+<!-- generated on 2025-08-31 17:37:43 by Eclipse SUMO netgenerate Version 1.23.1
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
@@ -10,7 +10,7 @@
     </grid_network>
 
     <output>
-        <output-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\sumo_data\grid_3x3.net.xml"/>
+        <output-file value="c:\Users\alfon\PycharmProjects\my_grid_simulation\sumo_data\grid_3x3.net.xml"/>
     </output>
 
     <building_defaults>

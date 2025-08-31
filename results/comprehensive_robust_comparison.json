@@ -1,0 +1,91 @@
+{
+  "patterns": {
+    "commuter": {
+      "data": {
+        "robust": {
+          "costs": [
+            233.86280466551298,
+            232.06666666666666,
+            232.35
+          ],
+          "times": [
+            54.611794233322144,
+            45.29938244819641,
+            45.479918479919434
+          ],
+          "improvements": [
+            0,
+            0,
+            0
+          ]
+        },
+        "regular": {
+          "costs": [
+            143.45000000000002,
+            141.10000000000002,
+            148.85000000000002
+          ],
+          "times": [
+            17.771178007125854,
+            17.59032893180847,
+            16.315046072006226
+          ],
+          "improvements": [
+            0,
+            0,
+            0
+          ]
+        },
+        "comparisons": [
+          {
+            "run": 1,
+            "robust_cost": 233.86280466551298,
+            "regular_cost": 143.45000000000002,
+            "cost_difference_pct": 63.02739955769463,
+            "robust_time": 54.611794233322144,
+            "regular_time": 17.771178007125854,
+            "time_difference": 36.84061622619629,
+            "robust_improvement": 0,
+            "regular_improvement": 0
+          },
+          {
+            "run": 2,
+            "robust_cost": 232.06666666666666,
+            "regular_cost": 141.10000000000002,
+            "cost_difference_pct": 64.46964327899832,
+            "robust_time": 45.29938244819641,
+            "regular_time": 17.59032893180847,
+            "time_difference": 27.70905351638794,
+            "robust_improvement": 0,
+            "regular_improvement": 0
+          },
+          {
+            "run": 3,
+            "robust_cost": 232.35,
+            "regular_cost": 148.85000000000002,
+            "cost_difference_pct": 56.09674168626131,
+            "robust_time": 45.479918479919434,
+            "regular_time": 16.315046072006226,
+            "time_difference": 29.164872407913208,
+            "robust_improvement": 0,
+            "regular_improvement": 0
+          }
+        ]
+      },
+      "stats": {
+        "robust": {
+          "mean_cost": 232.75982377739322,
+          "std_cost": 0.7884561176174402,
+          "mean_time": 48.463698387145996,
+          "mean_improvement": 0.0
+        },
+        "regular": {
+          "mean_cost": 144.4666666666667,
+          "std_cost": 3.2445681102763473,
+          "mean_time": 17.22551767031352,
+          "mean_improvement": 0.0
+        },
+        "comparison": {
+          "cost_difference_pct": 61.11662928753565,
+          "time_overhead": 31.238180716832478,
+          "robust_more_consistent": 

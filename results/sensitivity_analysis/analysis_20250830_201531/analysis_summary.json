@@ -1,0 +1,110 @@
+{
+  "analysis_metadata": {
+    "total_runs": 30,
+    "successful_runs": 30,
+    "analysis_time_seconds": 10297.595633268356,
+    "parameter_ranges": {
+      "n_ants": [
+        10,
+        50,
+        100,
+        150,
+        200,
+        250
+      ]
+    }
+  },
+  "best_configuration": {
+    "parameters": {
+      "n_ants": 100
+    },
+    "mean_cost": 116.43999999999997,
+    "std_cost": 9.492262111846685,
+    "mean_improvement": 0.0
+  },
+  "parameter_statistics": {
+    "[('n_ants', 10)]": {
+      "parameters": {
+        "n_ants": 10
+      },
+      "n_replications": 5,
+      "cost_mean": 154.152,
+      "cost_std": 9.481785485867094,
+      "cost_min": 139.2,
+      "cost_max": 165.0,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 50)]": {
+      "parameters": {
+        "n_ants": 50
+      },
+      "n_replications": 5,
+      "cost_mean": 133.79999999999998,
+      "cost_std": 17.023804510155756,
+      "cost_min": 110.0,
+      "cost_max": 154.71999999999997,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 100)]": {
+      "parameters": {
+        "n_ants": 100
+      },
+      "n_replications": 5,
+      "cost_mean": 116.43999999999997,
+      "cost_std": 9.492262111846685,
+      "cost_min": 105.59999999999997,
+      "cost_max": 129.39999999999998,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 150)]": {
+      "parameters": {
+        "n_ants": 150
+      },
+      "n_replications": 5,
+      "cost_mean": 137.75999999999996,
+      "cost_std": 11.273558444430925,
+      "cost_min": 119.63999999999999,
+      "cost_max": 148.76,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 200)]": {
+      "parameters": {
+        "n_ants": 200
+      },
+      "n_replications": 5,
+      "cost_mean": 129.088,
+      "cost_std": 8.969330855755077,
+      "cost_min": 116.39999999999999,
+      "cost_max": 139.56,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    },
+    "[('n_ants', 250)]": {
+      "parameters": {
+        "n_ants": 250
+      },
+      "n_replications": 5,
+      "cost_mean": 125.104,
+      "cost_std": 11.305689894915742,
+      "cost_min": 113.36,
+      "cost_max": 142.64,
+      "improvement_mean": 0.0,
+      "improvement_std": 0.0,
+      "time_mean": 0.0
+    }
+  },
+  "overall_statistics": {
+    "mean_cost_across_all": 132.724,
+    "std_cost_across_all": 16.468706000573732,
+    "mean_improvement_across_all": 0.0
+  }
+}

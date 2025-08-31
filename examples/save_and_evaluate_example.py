@@ -100,14 +100,14 @@ def main():
     print("-" * 30)
     
     training_config = {
-        "grid_size": 4,
+        "grid_size": 5,
         "n_vehicles": 20,
         "simulation_time": 1400,
         "traffic_pattern": "industrial",
         "random_seed": 42,  # Training seed
-        "n_ants": 30,
-        "n_iterations": 10,
-        "alpha": 10.0,
+        "n_ants": 50,
+        "n_iterations": 20,
+        "alpha": 5.0,
         "evaporation_rate": 0.3,
         "verbose": False
     }

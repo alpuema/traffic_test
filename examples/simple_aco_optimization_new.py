@@ -24,24 +24,25 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Grid Configuration
 GRID_SIZE = 5           # Options: 2, 3, or 4 (number of intersections will be GRID_SIZE²)
 N_VEHICLES = 20         # Number of vehicles (10-100, more vehicles = more complex scenario)
-SIMULATION_TIME = 1500   # Simulation duration in seconds (300-3600, longer = more accurate)
+SIMULATION_TIME = 2400   # Simulation duration in seconds (300-3600, longer = more accurate)
+                        # Increased to ensure all vehicles complete - uses 80% for departures, 20% for completion
 
 # Traffic Pattern
-TRAFFIC_PATTERN = 'commuter'  # Options: 'commuter', 'industrial', 'random'
+TRAFFIC_PATTERN = 'industrial'  # Options: 'commuter', 'industrial', 'random'
                              # commuter: Rush hour pattern (suburbs to downtown)
                              # industrial: Horizontal corridor traffic
                              # random: Completely random origins/destinations
 
 # ACO Algorithm Parameters
-N_ANTS = 30            # Number of ants (10-50, more ants = better exploration but slower)
-N_ITERATIONS = 5      # Number of iterations (5-20, more iterations = better solutions but slower)
+N_ANTS = 50           # Number of ants (10-50, more ants = better exploration but slower)
+N_ITERATIONS = 20     # Number of iterations (5-20, more iterations = better solutions but slower)
 ALPHA = 1.0           # Pheromone importance (0.5-2.0, higher = more pheromone influence)
 BETA = 2.0            # Heuristic importance (1.0-3.0, higher = more greedy behavior)
-RHO = 0.5             # Evaporation rate (0.1-0.9, higher = faster pheromone decay)
+RHO = 0.1             # Evaporation rate (0.1-0.9, higher = faster pheromone decay)
 
 # Display Options
 SHOW_PLOTS = True     # Show optimization progress plots
-SHOW_SUMO_GUI = True  # Launch SUMO GUI to visualize the optimized traffic scenario
+SHOW_SUMO_GUI = False  # Launch SUMO GUI to visualize the optimized traffic scenario
 VERBOSE = True        # Print detailed progress information
 RANDOM_SEED = 42      # For reproducible results (None for random each time)
 COMPARE_BASELINE = True  # Compare optimized solution against baseline (30s green, 4s yellow)
@@ -183,11 +184,23 @@ def main():
                 costs = [data['best_cost'] for data in optimization_data]
                 
                 plt.figure(figsize=(10, 6))
-                plt.plot(iterations, costs, 'b-o', linewidth=2, markersize=6)
-                plt.title('ACO Optimization Progress', fontsize=14, fontweight='bold')
+                plt.plot(iterations, costs, 'b-o', linewidth=2, markersize=6, label='ACO Optimization')
+                
+                # Add baseline cost as dashed horizontal line if available
+                if baseline_comparison and COMPARE_BASELINE:
+                    baseline_cost = baseline_comparison['baseline']['cost']
+                    if baseline_cost != float('inf'):
+                        plt.axhline(y=baseline_cost, color='r', linestyle='--', linewidth=2, 
+                                   label=f'Baseline ({baseline_cost:.1f})', alpha=0.8)
+                
                 plt.xlabel('Iteration')
                 plt.ylabel('Best Cost')
                 plt.grid(True, alpha=0.3)
+                plt.legend()
+                
+                # Set integer x-ticks
+                plt.xticks(range(1, len(costs) + 1))
+                
                 plt.tight_layout()
                 
                 # Save plot

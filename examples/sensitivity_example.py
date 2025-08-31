@@ -73,8 +73,8 @@ QUICK_DEMO_CONFIG = {
 # ----------------------------------------
 SINGLE_PARAM_CONFIG = {
     'parameter': 'n_ants',             # Parameter to analyze
-    'values': [10, 50, 100, 150, 200],        # Values to test
-    'replications': 2                  # Replications per value
+    'values': [10, 50, 100, 150, 200, 250],        # Values to test
+    'replications': 5                  # Replications per value
 }
 
 # ----------------------------------------

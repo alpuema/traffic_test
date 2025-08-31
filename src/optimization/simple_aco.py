@@ -49,12 +49,12 @@ WAITING_PENALTY = 2.0         # Penalty weight for waiting time
 # Scenario Configuration
 GRID_SIZE = 4                  # Grid dimensions (2 = 2x2, 3 = 3x3, etc.)
 N_VEHICLES = 20               # Number of vehicles in simulation
-SIMULATION_TIME = 1400         # Latest depart (711.8s) + max travel time (7 edges × 60s) + buffer (200s)
+SIMULATION_TIME = 13200         # Increased to accommodate industrial pattern late departures + extra travel time buffer
 
 # Display and Output
 SHOW_PROGRESS = True          # Show detailed progress
 SHOW_PLOTS = True            # Show optimization plots
-LAUNCH_SUMO_GUI = True      # Launch SUMO GUI with results
+LAUNCH_SUMO_GUI = False      # Launch SUMO GUI with results
 SAVE_RESULTS = True          # Save results to files
 
 # Reproducibility
@@ -94,7 +94,7 @@ def get_project_paths():
 # PLOTTING AND VISUALIZATION
 # ============================================================================
 
-def create_optimization_plot(best_costs, best_metrics_history, paths, show_plot=None):
+def create_optimization_plot(best_costs, best_metrics_history, paths, show_plot=None, baseline_comparison=None):
     """Create and save optimization progress plot."""
     # Use parameter if provided, otherwise use global setting
     should_show = show_plot if show_plot is not None else SHOW_PLOTS
@@ -112,11 +112,21 @@ def create_optimization_plot(best_costs, best_metrics_history, paths, show_plot=
     # Plot 1: Cost progression
     plt.subplot(3, 1, 1)
     plt.plot(iterations, best_costs, 'b-o', linewidth=2, markersize=6, label='Best Cost per Iteration')
+    
+    # Add baseline cost as dashed horizontal line if available
+    if baseline_comparison and 'baseline' in baseline_comparison:
+        baseline_cost = baseline_comparison['baseline'].get('cost', None)
+        if baseline_cost is not None and baseline_cost != float('inf'):
+            plt.axhline(y=baseline_cost, color='r', linestyle='--', linewidth=2, 
+                       label=f'Baseline Cost ({baseline_cost:.1f})', alpha=0.8)
+    
     plt.xlabel('Iteration')
     plt.ylabel('Cost')
-    plt.title('ACO Traffic Light Optimization Progress - Cost Function')
     plt.grid(True, alpha=0.3)
     plt.legend()
+    
+    # Set integer x-ticks
+    plt.xticks(range(len(best_costs)))
     
     # Add improvement annotation
     if len(best_costs) > 1:
@@ -132,18 +142,22 @@ def create_optimization_plot(best_costs, best_metrics_history, paths, show_plot=
     plt.plot(iterations, best_times, 'g-x', linewidth=2, markersize=6, label='Best Total Travel Time')
     plt.xlabel('Iteration')
     plt.ylabel('Time (seconds)')
-    plt.title('Total Travel Time Progress')
     plt.grid(True, alpha=0.3)
     plt.legend()
+    
+    # Set integer x-ticks
+    plt.xticks(range(len(best_costs)))
     
     # Plot 3: Max stop time progression
     plt.subplot(3, 1, 3)
     plt.plot(iterations, best_maxstops, 'r-s', linewidth=2, markersize=6, label='Best Max Stop Time')
     plt.xlabel('Iteration')
     plt.ylabel('Time (seconds)')
-    plt.title('Maximum Stop Time Progress')
     plt.grid(True, alpha=0.3)
     plt.legend()
+    
+    # Set integer x-ticks
+    plt.xticks(range(len(best_costs)))
     
     plt.tight_layout()
     plot_path = os.path.join(paths['results'], 'aco_optimization_progress.png')
@@ -494,7 +508,7 @@ def evaluate_solution(solution, net_file, route_file, temp_dir):
         apply_solution_to_network(temp_net_file, solution)
         
         # Create SUMO configuration
-        create_sumo_config(temp_cfg_file, temp_net_file, route_file, temp_tripinfo_file)
+        create_sumo_config(temp_cfg_file, temp_net_file, route_file, temp_tripinfo_file, SIMULATION_TIME)
         
         # Run SUMO simulation
         result = subprocess.run([
@@ -557,7 +571,7 @@ def apply_solution_to_network(net_file, solution):
     except Exception as e:
         print_progress(f"   ⚠️  Error applying solution: {e}")
 
-def create_sumo_config(cfg_file, net_file, route_file, tripinfo_file):
+def create_sumo_config(cfg_file, net_file, route_file, tripinfo_file, sim_time=None):
     """Create SUMO configuration file."""
     # Use absolute paths to avoid path issues
     net_file_abs = os.path.abspath(net_file)
@@ -568,6 +582,9 @@ def create_sumo_config(cfg_file, net_file, route_file, tripinfo_file):
     sumo_data_dir = os.path.dirname(route_file_abs)
     vtype_file = os.path.join(sumo_data_dir, 'vtype.add.xml')
     vtype_file_abs = os.path.abspath(vtype_file)
+    
+    # Use passed simulation time or global default
+    simulation_time = sim_time if sim_time is not None else SIMULATION_TIME
     
     config_content = f'''<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
@@ -580,7 +597,7 @@ def create_sumo_config(cfg_file, net_file, route_file, tripinfo_file):
         <tripinfo-output value="{tripinfo_file_abs}"/>
     </output>
     <time>
-        <end value="{SIMULATION_TIME}"/>
+        <end value="{simulation_time}"/>
     </time>
 </configuration>'''
     
@@ -785,7 +802,38 @@ def evaluate_baseline_comparison(best_solution, phase_types, net_file, route_fil
 # MAIN OPTIMIZATION FUNCTION
 # ============================================================================
 
-def run_traditional_aco_optimization(config=None, show_plots_override=None, show_gui_override=None, compare_baseline=True):
+def extract_files_from_sumo_config(sumo_config_file):
+    """Extract network and route file paths from SUMO config file."""
+    try:
+        tree = ET.parse(sumo_config_file)
+        root = tree.getroot()
+        
+        net_file = None
+        route_file = None
+        
+        # Find net-file
+        net_elem = root.find('.//net-file')
+        if net_elem is not None:
+            net_file = net_elem.get('value')
+            # Convert to absolute path if relative
+            if net_file and not os.path.isabs(net_file):
+                net_file = os.path.join(os.path.dirname(sumo_config_file), net_file)
+        
+        # Find route-files  
+        route_elem = root.find('.//route-files')
+        if route_elem is not None:
+            route_file = route_elem.get('value')
+            # Convert to absolute path if relative
+            if route_file and not os.path.isabs(route_file):
+                route_file = os.path.join(os.path.dirname(sumo_config_file), route_file)
+        
+        return net_file, route_file
+        
+    except Exception as e:
+        print_progress(f"⚠️  Error parsing SUMO config: {e}")
+        return None, None
+
+def run_traditional_aco_optimization(config=None, show_plots_override=None, show_gui_override=None, compare_baseline=True, sumo_config_file=None):
     """
     Run the simplified ACO optimization.
     
@@ -793,6 +841,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
         config: Optional configuration dictionary
         show_plots_override: Boolean to control plot display (overrides global SHOW_PLOTS)
         show_gui_override: Boolean to control GUI launch (overrides global LAUNCH_SUMO_GUI)
+        sumo_config_file: Path to SUMO config file (if provided, network/route files will be extracted from it)
     
     Returns:
         Dictionary with optimization results
@@ -833,13 +882,23 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
     print_progress(f"   Constraints: Green {GREEN_MIN_DURATION}-{GREEN_MAX_DURATION}s, Yellow {YELLOW_MIN_DURATION}-{YELLOW_MAX_DURATION}s")
     
     try:
-        # Setup scenario files (this would use existing scenario generation)
-        net_file = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.net.xml')
-        route_file = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.rou.xml')
-        if not os.path.exists(route_file):
-            alt = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.rou.alt.xml')
-            if os.path.exists(alt):
-                route_file = alt
+        # Setup scenario files
+        net_file = None
+        route_file = None
+        
+        # If SUMO config file is provided, extract file paths from it
+        if sumo_config_file and os.path.exists(sumo_config_file):
+            print_progress(f"📁 Using SUMO config: {os.path.basename(sumo_config_file)}")
+            net_file, route_file = extract_files_from_sumo_config(sumo_config_file)
+        
+        # Fallback to default file path logic if no config provided or extraction failed
+        if not net_file or not route_file or not os.path.exists(net_file) or not os.path.exists(route_file):
+            net_file = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.net.xml')
+            route_file = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.rou.xml')
+            if not os.path.exists(route_file):
+                alt = os.path.join(paths['sumo_data'], f'grid_{GRID_SIZE}x{GRID_SIZE}.rou.alt.xml')
+                if os.path.exists(alt):
+                    route_file = alt
 
         if not os.path.exists(net_file):
             print_progress("❌ Network file not found. Please generate scenario first.")
@@ -947,7 +1006,7 @@ def run_traditional_aco_optimization(config=None, show_plots_override=None, show
 
         # Create optimization plot
         if len(best_costs) > 0:
-            create_optimization_plot(best_costs, best_metrics_history, paths, show_plot)
+            create_optimization_plot(best_costs, best_metrics_history, paths, show_plot, baseline_comparison)
 
         # Launch SUMO GUI with optimized solution if requested
         if launch_gui and overall_best_solution is not None:

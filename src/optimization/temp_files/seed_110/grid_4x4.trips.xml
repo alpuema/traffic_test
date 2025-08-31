@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trips>
+    <trip id="trip_0" depart="1.00" from="C0B0" to="C3C2"/>
+    <trip id="trip_1" depart="1.00" from="D2D1" to="B1C1"/>
+    <trip id="trip_2" depart="1.00" from="C0D0" to="C0C1"/>
+    <trip id="trip_3" depart="1.00" from="D3D2" to="B1C1"/>
+    <trip id="trip_4" depart="64.00" from="D2D3" to="C1B1"/>
+    <trip id="trip_5" depart="160.00" from="D3D2" to="A2B2"/>
+    <trip id="trip_6" depart="256.00" from="D1D0" to="B2C2"/>
+    <trip id="trip_7" depart="352.00" from="D0C0" to="B2B1"/>
+    <trip id="trip_8" depart="448.00" from="A0B0" to="A2B2"/>
+    <trip id="trip_9" depart="544.00" from="D0D1" to="D2C2"/>
+    <trip id="trip_10" depart="640.00" from="A1A0" to="B0B1"/>
+    <trip id="trip_11" depart="736.00" from="C3B3" to="C1C2"/>
+    <trip id="trip_12" depart="832.00" from="A0A1" to="C0C1"/>
+    <trip id="trip_13" depart="928.00" from="C3B3" to="D2C2"/>
+    <trip id="trip_14" depart="1024.00" from="D1D2" to="C3C2"/>
+    <trip id="trip_15" depart="1120.00" from="D3C3" to="B1B2"/>
+    <trip id="trip_16" depart="1216.00" from="B0C0" to="B1C1"/>
+    <trip id="trip_17" depart="1312.00" from="C0B0" to="B2C2"/>
+    <trip id="trip_18" depart="1408.00" from="D0C0" to="A2B2"/>
+    <trip id="trip_19" depart="1504.00" from="C0D0" to="D2C2"/>
+</trips>

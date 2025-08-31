@@ -205,7 +205,8 @@ class ACOTrafficOptimizer:
             config=config, 
             show_plots_override=self.show_plots,
             show_gui_override=self.show_sumo_gui,
-            compare_baseline=self.compare_baseline
+            compare_baseline=self.compare_baseline,
+            sumo_config_file=self.sumo_config
         )
         if not results.get('success'):
             raise RuntimeError(results.get('error', 'Optimization failed'))

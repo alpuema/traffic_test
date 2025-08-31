@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_files\seed_59_temp_3295.net.xml"/>
+        <route-files value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_files\seed_59\grid_4x4.rou.xml"/>
+        <additional-files value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_files\seed_59\vtype.add.xml"/>
+    </input>
+    <output>
+        <tripinfo-output value="C:\Users\alfon\PycharmProjects\my_grid_simulation\src\optimization\temp_files\seed_59_temp_3295_tripinfo.xml"/>
+    </output>
+    <time>
+        <end value="13200"/>
+    </time>
+</configuration>
